@@ -1,0 +1,19 @@
+{
+    "mydev": {
+        "awscloudformation": {
+            "AuthRoleName": "job-assist-mydev-20191018195118-authRole",
+            "UnauthRoleArn": "arn:aws:iam::795510795567:role/job-assist-mydev-20191018195118-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::795510795567:role/job-assist-mydev-20191018195118-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "job-assist-mydev-20191018195118-deployment",
+            "UnauthRoleName": "job-assist-mydev-20191018195118-unauthRole",
+            "StackName": "job-assist-mydev-20191018195118",
+            "StackId": "arn:aws:cloudformation:us-east-1:795510795567:stack/job-assist-mydev-20191018195118/a6df9670-f1e0-11e9-a3a5-0ad23187ddb2"
+        },
+        "categories": {
+            "auth": {
+                "jobassist8b1be0cb": {}
+            }
+        }
+    }
+}
