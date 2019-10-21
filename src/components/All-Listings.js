@@ -41,6 +41,7 @@ export default () => {
                 setListings(updatedListings);
       }
     });
+  useEffect(() => {
               API.graphql(
                 graphqlOperation(updateListing, {
                   input: {
@@ -59,6 +60,7 @@ export default () => {
 
                 setListings(updatedListings);
               });
+  }, []);
   useEffect(() => {
     API.graphql(graphqlOperation(listListings))
       .then(result => {
