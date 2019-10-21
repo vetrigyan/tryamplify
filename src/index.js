@@ -8,6 +8,7 @@ import "normalize.css/normalize.css";
 import "./index.css";
 import amplifyConfig from "./aws-exports";
 
+Amplify.Logger.LOG_LEVEL = "DEBUG";
 Amplify.configure(amplifyConfig);
 
 ReactDOM.render(<App />, document.getElementById("root"));
