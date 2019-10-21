@@ -26,24 +26,6 @@ const Listings = styled("div")`
 
 export default () => {
   const [listings, setListings] = useState([]);
-              API.graphql(
-                graphqlOperation(updateListing, {
-                  input: {
-                    ...listing,
-                    ...values
-                  }
-                })
-              ).then(result => {
-                const updatedListings = listings.map(l => {
-                  if (l.id === result.data.updateListing.id) {
-                    return result.data.updateListing;
-                  }
-
-                  return l;
-                });
-
-                setListings(updatedListings);
-              });
   useEffect(() => {
     API.graphql(graphqlOperation(listListings))
       .then(result => {
