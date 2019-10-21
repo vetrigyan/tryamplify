@@ -26,7 +26,7 @@ const Listings = styled("div")`
 
 export default () => {
   const [listings, setListings] = useState([]);
-  subscription = API.graphql(graphqlOperation(onUpdateListing)).subscribe({
+  API.graphql(graphqlOperation(onUpdateListing)).subscribe({
       next: (event) => { 
           this.setState({notes: event.value.data.onUpdateListing.notes});
           console.log("Subscription for Movie " + event.value.data.onUpdateListing.title);  
