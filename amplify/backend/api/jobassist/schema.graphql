@@ -1,4 +1,4 @@
-type Listing @model(subscriptions: null) {
+type Listing @model {
   id: ID!
   title: String!
   company: String!

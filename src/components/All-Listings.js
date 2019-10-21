@@ -11,6 +11,10 @@ import {
   updateListing
 } from "../graphql/mutations";
 
+import {
+  onUpdateListing
+} from "../graphql/subscriptions";
+
 const Container = styled("div")`
   max-width: 800px;
   margin: 16px auto;
@@ -22,7 +26,12 @@ const Listings = styled("div")`
 
 export default () => {
   const [listings, setListings] = useState([]);
-
+  this.subscription = API.graphql(graphqlOperation(onUpdateListing)).subscribe({
+      next: (event) => { 
+          this.setState({notes: event.value.data.onUpdateListing.notes});
+          console.log("Subscription for Movie " + event.value.data.onUpdateListing.title);  
+      }
+    });
   useEffect(() => {
     API.graphql(graphqlOperation(listListings))
       .then(result => {
