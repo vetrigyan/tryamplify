@@ -39,8 +39,6 @@ export default () => {
       .catch(error => {
         console.log(error);
       });
-  }, []);
-
   API.graphql(graphqlOperation(onUpdateListing)).subscribe({
       next: (event) => { 
           //this.setState({notes: event.value.data.onUpdateListing.notes});
@@ -56,6 +54,8 @@ export default () => {
                 setListings(updatedListings);
       }
     });
+  }, []);
+
   return (
     <Container>
       <TrackListing
