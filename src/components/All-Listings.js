@@ -26,22 +26,6 @@ const Listings = styled("div")`
 
 export default () => {
   const [listings, setListings] = useState([]);
-  API.graphql(graphqlOperation(onUpdateListing)).subscribe({
-      next: (event) => { 
-          //this.setState({notes: event.value.data.onUpdateListing.notes});
-          console.log("Subscription for Movie " + event.value.data.onUpdateListing.title);  
-                const updatedListings = listings.map(l => {
-                  if (l.id === event.value.data.onUpdateListing.id) {
-                    return event.value.data.onUpdateListing;
-                  }
-
-                  return l;
-                });
-
-                setListings(updatedListings);
-      }
-    });
-  useEffect(() => {
               API.graphql(
                 graphqlOperation(updateListing, {
                   input: {
@@ -60,7 +44,6 @@ export default () => {
 
                 setListings(updatedListings);
               });
-  }, []);
   useEffect(() => {
     API.graphql(graphqlOperation(listListings))
       .then(result => {
@@ -76,6 +59,21 @@ export default () => {
       });
   }, []);
 
+  API.graphql(graphqlOperation(onUpdateListing)).subscribe({
+      next: (event) => { 
+          //this.setState({notes: event.value.data.onUpdateListing.notes});
+          console.log("Subscription for Movie " + event.value.data.onUpdateListing.title);  
+                const updatedListings = listings.map(l => {
+                  if (l.id === event.value.data.onUpdateListing.id) {
+                    return event.value.data.onUpdateListing;
+                  }
+
+                  return l;
+                });
+
+                setListings(updatedListings);
+      }
+    });
   return (
     <Container>
       <TrackListing
