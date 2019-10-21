@@ -28,10 +28,37 @@ export default () => {
   const [listings, setListings] = useState([]);
   API.graphql(graphqlOperation(onUpdateListing)).subscribe({
       next: (event) => { 
-          this.setState({notes: event.value.data.onUpdateListing.notes});
+          //this.setState({notes: event.value.data.onUpdateListing.notes});
           console.log("Subscription for Movie " + event.value.data.onUpdateListing.title);  
+                const updatedListings = listings.map(l => {
+                  if (l.id === event.value.data.onUpdateListing.id) {
+                    return event.value.data.onUpdateListing;
+                  }
+
+                  return l;
+                });
+
+                setListings(updatedListings);
       }
     });
+              API.graphql(
+                graphqlOperation(updateListing, {
+                  input: {
+                    ...listing,
+                    ...values
+                  }
+                })
+              ).then(result => {
+                const updatedListings = listings.map(l => {
+                  if (l.id === result.data.updateListing.id) {
+                    return result.data.updateListing;
+                  }
+
+                  return l;
+                });
+
+                setListings(updatedListings);
+              });
   useEffect(() => {
     API.graphql(graphqlOperation(listListings))
       .then(result => {
