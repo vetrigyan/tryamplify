@@ -40,8 +40,22 @@ export default () => {
         console.log(error);
       });
   API.graphql(graphqlOperation(onUpdateListing)).subscribe({
-      next: (event) => { 
-          //this.setState({notes: event.value.data.onUpdateListing.notes});
+      next: (event) => {
+          onReceipt(event); 
+          //console.log("Subscription for Movie " + event.value.data.onUpdateListing.title);  
+                //const updatedListings = listings.map(l => {
+                  //if (l.id === event.value.data.onUpdateListing.id) {
+                  //  return event.value.data.onUpdateListing;
+                 // }
+
+                 // return l;
+                //});
+
+                //setListings(updatedListings);
+      }
+    });
+  }, []);
+        onReceipt={event => {
           console.log("Subscription for Movie " + event.value.data.onUpdateListing.title);  
                 const updatedListings = listings.map(l => {
                   if (l.id === event.value.data.onUpdateListing.id) {
@@ -52,9 +66,8 @@ export default () => {
                 });
 
                 setListings(updatedListings);
-      }
-    });
-  }, []);
+
+        }}
 
   return (
     <Container>
