@@ -55,7 +55,7 @@ export default () => {
       }
     });
   }, []);
-        onReceipt={event => {
+        onReceipt= (event) => {
           console.log("Subscription for Movie " + event.value.data.onUpdateListing.title);  
                 const updatedListings = listings.map(l => {
                   if (l.id === event.value.data.onUpdateListing.id) {
@@ -67,7 +67,7 @@ export default () => {
 
                 setListings(updatedListings);
 
-        }}
+        }
 
   return (
     <Container>
