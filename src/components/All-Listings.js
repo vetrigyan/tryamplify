@@ -24,8 +24,21 @@ const Listings = styled("div")`
   margin-top: 24px;
 `;
 
-export default () => {
+export default class AllListings {
   const [listings, setListings] = useState([]);
+        const onReceipt = (event) => {
+          console.log("Subscription for Movie " + event.value.data.onUpdateListing.title);  
+                const updatedListings = listings.map(l => {
+                  if (l.id === event.value.data.onUpdateListing.id) {
+                    return event.value.data.onUpdateListing;
+                  }
+
+                  return l;
+                });
+
+                setListings(updatedListings);
+
+        }
   useEffect(() => {
     API.graphql(graphqlOperation(listListings))
       .then(result => {
@@ -55,19 +68,6 @@ export default () => {
       }
     });
   }, []);
-        onReceipt= (event) => {
-          console.log("Subscription for Movie " + event.value.data.onUpdateListing.title);  
-                const updatedListings = listings.map(l => {
-                  if (l.id === event.value.data.onUpdateListing.id) {
-                    return event.value.data.onUpdateListing;
-                  }
-
-                  return l;
-                });
-
-                setListings(updatedListings);
-
-        }
 
   return (
     <Container>
