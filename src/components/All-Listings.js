@@ -24,7 +24,7 @@ const Listings = styled("div")`
   margin-top: 24px;
 `;
 
-export default class AllListings {
+export default () => {
   const [listings, setListings] = useState([]);
         const onReceipt = (event) => {
           console.log("Subscription for Movie " + event.value.data.onUpdateListing.title);  
