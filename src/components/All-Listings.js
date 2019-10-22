@@ -26,6 +26,7 @@ const Listings = styled("div")`
 
 export default () => {
   const [listings, setListings] = useState([]);
+  const e;
         const onReceipt = (event) => {
           console.log("Subscription for Movie " + event.value.data.onUpdateListing.title);  
                 const updatedListings = listings.map(l => {
@@ -54,7 +55,19 @@ export default () => {
       });
   API.graphql(graphqlOperation(onUpdateListing)).subscribe({
       next: (event) => {
-          onReceipt(event); 
+          e = event;
+          setListings(prevValue => {
+          console.log("Subscription for Movie " + e.value.data.onUpdateListing.title);  
+                const updatedListings = prevValue.map(l => {
+                  if (l.id === e.value.data.onUpdateListing.id) {
+                    return e.value.data.onUpdateListing;
+                  }
+
+                  return l;
+                });
+                return updatedListings;
+          });
+          //onReceipt(event); 
           //console.log("Subscription for Movie " + event.value.data.onUpdateListing.title);  
                 //const updatedListings = listings.map(l => {
                   //if (l.id === event.value.data.onUpdateListing.id) {
