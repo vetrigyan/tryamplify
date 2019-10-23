@@ -47,7 +47,7 @@ export default () => {
           setListings(prevValue => {
           console.log("Invoked onCreateListing Subcription callback " + e.value.data.onCreateListing.title);  
           let ids = new Map();
-          const updatedListings = prevValue;
+          let updatedListings = prevValue;
           updatedListings.push(e.value.data.onCreateListing);
                   updatedListings = updatedListings.filter(l => {
                   if (ids.has(l.id)) {
