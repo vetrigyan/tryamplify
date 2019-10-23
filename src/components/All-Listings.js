@@ -46,7 +46,7 @@ export default () => {
       next: (e) => {
           setListings(prevValue => {
           console.log("Invoked onCreateListing Subcription callback " + e.value.data.onCreateListing.title);  
-          const updatedListings = preValue;
+          const updatedListings = prevValue;
           updatedListings.push(e.value.data.onCreateListing);
           updatedListings.sort((a, b) => {
             if (a.updatedAt > b.updatedAt) return -1;
@@ -76,7 +76,7 @@ export default () => {
           setListings(prevValue => {
           console.log("Invoked onDeleteListing Subscription callback " + e.value.data.onDeleteListing.title);  
                 const updatedListings = prevValue.filter(l => {
-                  l.id !== e.value.data.onDeleteListing.id;
+                  return l.id !== e.value.data.onDeleteListing.id;
                 });
                 return updatedListings;
           });
