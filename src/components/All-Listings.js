@@ -12,8 +12,8 @@ import {
 } from "../graphql/mutations";
 
 import {
-  onCreateListing
-  onUpdateListing
+  onCreateListing,
+  onUpdateListing,
   onDeleteListing
 } from "../graphql/subscriptions";
 
