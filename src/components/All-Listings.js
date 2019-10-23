@@ -48,7 +48,7 @@ export default () => {
           console.log("Invoked onCreateListing Subcription callback " + e.value.data.onCreateListing.title);  
           const updatedListings = preValue;
           updatedListings.push(e.value.data.onCreateListing);
-          const updatedListings = updatedListings.sort((a, b) => {
+          updatedListings.sort((a, b) => {
             if (a.updatedAt > b.updatedAt) return -1;
             else return 1;
           })
