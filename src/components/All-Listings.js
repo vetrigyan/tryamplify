@@ -47,10 +47,11 @@ export default () => {
           setListings(prevValue => {
           console.log("Invoked onCreateListing Subcription callback " + e.value.data.onCreateListing.title);  
           let ids = new Map();
+          const updatedListings = prevValue;
           updatedListings.push(e.value.data.onCreateListing);
-                const updatedListings = prevValue.filter(l => {
+                  updatedListings = updatedListings.filter(l => {
                   if (ids.has(l.id)) {
-                    console.log("Invoked onCreateListing Subcription callback " + e.value.data.onCreateListing.title);  
+                    console.log("Duplicate listing found, handling it with id= " + l.id + ", title=" + l.title);
                     const dupListing = ids.get(l.id);
                     if (dupListing.updatedAt >= l.updatedAt) {
                       return false;
