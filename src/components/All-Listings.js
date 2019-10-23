@@ -42,7 +42,7 @@ export default () => {
       .catch(error => {
         console.log(error);
       });
-  API.graphql(graphqlOperation(onCreateListing)).subscribe({
+  /*API.graphql(graphqlOperation(onCreateListing)).subscribe({
       next: (e) => {
           setListings(prevValue => {
           console.log("Invoked onCreateListing Subcription callback " + e.value.data.onCreateListing.title);  
@@ -55,7 +55,7 @@ export default () => {
             return updatedListings;
           });
       }
-    });
+    });*/
   API.graphql(graphqlOperation(onUpdateListing)).subscribe({
       next: (e) => {
           setListings(prevValue => {
