@@ -12,7 +12,9 @@ import {
 } from "../graphql/mutations";
 
 import {
+  onCreateListing
   onUpdateListing
+  onDeleteListing
 } from "../graphql/subscriptions";
 
 const Container = styled("div")`
@@ -27,19 +29,6 @@ const Listings = styled("div")`
 export default () => {
   const [listings, setListings] = useState([]);
   
-        const onReceipt = (event) => {
-          console.log("Subscription for Movie " + event.value.data.onUpdateListing.title);  
-                const updatedListings = listings.map(l => {
-                  if (l.id === event.value.data.onUpdateListing.id) {
-                    return event.value.data.onUpdateListing;
-                  }
-
-                  return l;
-                });
-
-                setListings(updatedListings);
-
-        }
   useEffect(() => {
     API.graphql(graphqlOperation(listListings))
       .then(result => {
@@ -53,10 +42,24 @@ export default () => {
       .catch(error => {
         console.log(error);
       });
+  API.graphql(graphqlOperation(onCreateListing)).subscribe({
+      next: (e) => {
+          setListings(prevValue => {
+          console.log("Invoked onCreateListing Subcription callback " + e.value.data.onCreateListing.title);  
+          const updatedListings = preValue;
+          updatedListings.push(e.value.data.onCreateListing);
+          const updatedListings = updatedListings.sort((a, b) => {
+            if (a.updatedAt > b.updatedAt) return -1;
+            else return 1;
+          })
+            return updatedListings;
+          });
+      }
+    });
   API.graphql(graphqlOperation(onUpdateListing)).subscribe({
       next: (e) => {
           setListings(prevValue => {
-          console.log("Subscription for Movie " + e.value.data.onUpdateListing.title);  
+          console.log("Invoked onUpdateListing Subscription callback " + e.value.data.onUpdateListing.title);  
                 const updatedListings = prevValue.map(l => {
                   if (l.id === e.value.data.onUpdateListing.id) {
                     return e.value.data.onUpdateListing;
@@ -66,17 +69,17 @@ export default () => {
                 });
                 return updatedListings;
           });
-          //onReceipt(event); 
-          //console.log("Subscription for Movie " + event.value.data.onUpdateListing.title);  
-                //const updatedListings = listings.map(l => {
-                  //if (l.id === event.value.data.onUpdateListing.id) {
-                  //  return event.value.data.onUpdateListing;
-                 // }
-
-                 // return l;
-                //});
-
-                //setListings(updatedListings);
+      }
+    });
+  API.graphql(graphqlOperation(onDeleteListing)).subscribe({
+      next: (e) => {
+          setListings(prevValue => {
+          console.log("Invoked onDeleteListing Subscription callback " + e.value.data.onDeleteListing.title);  
+                const updatedListings = prevValue.filter(l => {
+                  l.id !== e.value.data.onDeleteListing.id;
+                });
+                return updatedListings;
+          });
       }
     });
   }, []);
