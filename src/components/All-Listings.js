@@ -42,12 +42,27 @@ export default () => {
       .catch(error => {
         console.log(error);
       });
-  /*API.graphql(graphqlOperation(onCreateListing)).subscribe({
+  API.graphql(graphqlOperation(onCreateListing)).subscribe({
       next: (e) => {
           setListings(prevValue => {
           console.log("Invoked onCreateListing Subcription callback " + e.value.data.onCreateListing.title);  
-          const updatedListings = prevValue;
+          let ids = new Map();
           updatedListings.push(e.value.data.onCreateListing);
+                const updatedListings = prevValue.filter(l => {
+                  if (ids.has(l.id)) {
+                    console.log("Invoked onCreateListing Subcription callback " + e.value.data.onCreateListing.title);  
+                    const dupListing = ids.get(l.id);
+                    if (dupListing.updatedAt >= l.updatedAt) {
+                      return false;
+                    }
+                    ids.delete(l.id);
+                    ids.set(l.id, l);
+                    return true;
+                  } else {
+                    ids.set(l.id, l);
+                    return true;
+                  }
+                });
           updatedListings.sort((a, b) => {
             if (a.updatedAt > b.updatedAt) return -1;
             else return 1;
@@ -55,7 +70,7 @@ export default () => {
             return updatedListings;
           });
       }
-    });*/
+    });
   API.graphql(graphqlOperation(onUpdateListing)).subscribe({
       next: (e) => {
           setListings(prevValue => {
